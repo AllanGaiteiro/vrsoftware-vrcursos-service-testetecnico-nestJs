@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AlunosModule } from './alunos/alunos.module';
-import { CursosModule } from './cursos/cursos.module';
-import { MatriculasModule } from './matriculas/matriculas.module';
+import { CoursesModule } from './courses/courses.module';
+import { StudentsModule } from './students/students.module';
+import { MatriculationsModule } from './matriculations/matriculations.module';
 
 @Module({
-  imports: [AlunosModule, CursosModule, MatriculasModule],
+  imports: [CoursesModule, StudentsModule, MatriculationsModule],
   controllers: [AppController],
   providers: [AppService],
 })
