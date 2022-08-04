@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MatriculationsService } from './matriculations.service';
 import { MatriculationsController } from './matriculations.controller';
-import { MatriculationRepository } from 'src/repositorys/matriculation.repository';
+import { matriculationProviders } from './entities/matriculation.providers';
+import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
+  imports: [DatabaseModule],
   controllers: [MatriculationsController],
-  providers: [MatriculationsService, MatriculationRepository],
+  providers: [...matriculationProviders, MatriculationsService],
 })
 export class MatriculationsModule {}
