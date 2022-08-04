@@ -10,8 +10,10 @@ export class StudentsService {
   constructor(
     @Inject('STUDENT_REPOSITORY') private repository: Repository<Student>,
   ) {}
-  create(createStudentDto: CreateStudentDto) {
-    return this.repository.create(createStudentDto);
+  async create(createStudentDto: CreateStudentDto): Promise<Student> {
+    const student = new Student();
+    student.nome = createStudentDto.nome;
+    return await this.repository.save(student);
   }
 
   findAll(): Promise<Student[]> {
@@ -28,8 +30,8 @@ export class StudentsService {
     });
   }
 
-  update(codigo: number, updateStudentDto: UpdateStudentDto): Promise<UpdateResult> {
-    return this.repository.update(codigo, updateStudentDto);
+  async update(codigo: number, updateStudentDto: UpdateStudentDto): Promise<UpdateResult> {
+    return await this.repository.update(codigo, updateStudentDto);
   }
 
   remove(codigo: number): Promise<DeleteResult> {

@@ -9,9 +9,13 @@ import { Course } from './entities/course.entity';
 export class CoursesService {
   constructor(
     @Inject('COURSE_REPOSITORY') private repository: Repository<Course>,
-  ) {}
-  create(createCourseDto: CreateCourseDto): Course {
-    return this.repository.create(createCourseDto);
+  ) { }
+  async create(createCourseDto: CreateCourseDto): Promise<Course> {
+    console.log('courses create')
+    const course = new Course();
+    course.ementa = createCourseDto.ementa;
+    course.descricao = createCourseDto.descricao;
+    return await this.repository.save(course);
   }
 
   findAll(): Promise<Course[]> {
@@ -28,11 +32,11 @@ export class CoursesService {
     });
   }
 
-  update(codigo: number, updateCourseDto: UpdateCourseDto): Promise<UpdateResult> {
-    return this.repository.update(codigo, updateCourseDto);
+  async update(codigo: number, updateCourseDto: UpdateCourseDto): Promise<UpdateResult> {
+    return await this.repository.update(codigo, updateCourseDto);
   }
 
-  remove(codigo: number): Promise<DeleteResult>{
+  remove(codigo: number): Promise<DeleteResult> {
     return this.repository.delete(codigo);
   }
 }

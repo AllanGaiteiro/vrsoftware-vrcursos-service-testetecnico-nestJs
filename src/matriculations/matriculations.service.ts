@@ -10,8 +10,19 @@ export class MatriculationsService {
   constructor(
     @Inject('MATRICULATION_REPOSITORY') private repository: Repository<Matriculation>,
   ) {}
-  create(createMatriculationDto: CreateMatriculationDto) {
-    return this.repository.create(createMatriculationDto);
+    /*
+        console.log('courses create')
+    const course = new Course();
+    course.ementa = createCourseDto.ementa;
+    course.descricao = createCourseDto.descricao;
+    return await this.repository.save(course);
+    */
+
+  async create(createMatriculationDto: CreateMatriculationDto): Promise<Matriculation> {
+    const matriculation = new Matriculation();
+    matriculation.codigoAluno = createMatriculationDto.codigoAluno;
+    matriculation.codigoCurso = createMatriculationDto.codigoCurso;
+    return await this.repository.save(matriculation);
   }
 
   findAll(): Promise<Matriculation[]> {
@@ -28,8 +39,8 @@ export class MatriculationsService {
     });
   }
 
-  update(codigo: number, updateMatriculationDto: UpdateMatriculationDto): Promise<UpdateResult> {
-    return this.repository.update(codigo, updateMatriculationDto);
+  async update(codigo: number, updateMatriculationDto: UpdateMatriculationDto): Promise<UpdateResult> {
+    return await this.repository.update(codigo, updateMatriculationDto);
   }
 
   remove(codigo: number): Promise<DeleteResult> {

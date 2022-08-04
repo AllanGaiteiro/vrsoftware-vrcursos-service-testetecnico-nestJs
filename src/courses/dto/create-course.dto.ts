@@ -1,3 +1,4 @@
-import { Course } from '../entities/course.entity';
-
-export class CreateCourseDto extends Course {}
+export class CreateCourseDto {
+  descricao: string;
+  ementa: string;
+}
