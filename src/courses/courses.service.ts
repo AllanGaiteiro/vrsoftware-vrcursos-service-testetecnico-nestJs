@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, Inject } from '@nestjs/common';
 import { FindOptionsSelect, Repository } from 'typeorm';
 import { CreateCourseDto } from './dto/create-course.dto';

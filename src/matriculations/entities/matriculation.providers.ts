@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { DataSource } from 'typeorm';
 import { Matriculation } from './matriculation.entity';
 
