@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Inject, Injectable } from '@nestjs/common';
-import { FindOptionsSelect, Repository } from 'typeorm';
+import { DeleteResult, FindOptionsSelect, Repository, UpdateResult } from 'typeorm';
 import { CreateMatriculationDto } from './dto/create-matriculation.dto';
 import { UpdateMatriculationDto } from './dto/update-matriculation.dto';
 import { Matriculation } from './entities/matriculation.entity';
@@ -28,11 +28,11 @@ export class MatriculationsService {
     });
   }
 
-  update(codigo: number, updateMatriculationDto: UpdateMatriculationDto) {
+  update(codigo: number, updateMatriculationDto: UpdateMatriculationDto): Promise<UpdateResult> {
     return this.repository.update(codigo, updateMatriculationDto);
   }
 
-  remove(codigo: number) {
+  remove(codigo: number): Promise<DeleteResult> {
     return this.repository.delete(codigo);
   }
 }

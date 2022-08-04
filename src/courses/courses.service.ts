@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, Inject } from '@nestjs/common';
-import { FindOptionsSelect, Repository } from 'typeorm';
+import { DeleteResult, FindOptionsSelect, Repository, UpdateResult } from 'typeorm';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
@@ -28,11 +28,11 @@ export class CoursesService {
     });
   }
 
-  update(codigo: number, updateCourseDto: UpdateCourseDto) {
+  update(codigo: number, updateCourseDto: UpdateCourseDto): Promise<UpdateResult> {
     return this.repository.update(codigo, updateCourseDto);
   }
 
-  remove(codigo: number) {
+  remove(codigo: number): Promise<DeleteResult>{
     return this.repository.delete(codigo);
   }
 }
