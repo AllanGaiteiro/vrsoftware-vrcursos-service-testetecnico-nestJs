@@ -27,7 +27,10 @@ export class MatriculationsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.matriculationsService.findOne(id);
+    return this.matriculationsService.findOne({
+      select: { codigo: true },
+      where: { codigo: +id },
+    });
   }
 
   @Patch(':id')
@@ -35,11 +38,11 @@ export class MatriculationsController {
     @Param('id') id: string,
     @Body() updateMatriculationDto: UpdateMatriculationDto,
   ) {
-    return this.matriculationsService.update(id, updateMatriculationDto);
+    return this.matriculationsService.update(+id, updateMatriculationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.matriculationsService.remove(id);
+    return this.matriculationsService.remove(+id);
   }
 }
