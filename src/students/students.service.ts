@@ -1,29 +1,37 @@
-import { Injectable } from '@nestjs/common';
-import { StudentRepository } from 'src/repositorys/student.repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { FindOptionsSelect, Repository } from 'typeorm';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
 
 @Injectable()
 export class StudentsService {
-  constructor(private repository: StudentRepository) { }
+  constructor(
+    @Inject('STUDENT_REPOSITORY') private repository: Repository<Student>,
+  ) {}
   create(createStudentDto: CreateStudentDto) {
-    return this.repository.createStudent({ student: createStudentDto });
+    return this.repository.create(createStudentDto);
   }
 
   findAll(): Promise<Student[]> {
-    return this.repository.getStudents();
+    return this.repository.find();
   }
 
-  findOne(id: string) {
-    return this.repository.getStudent(id);
+  findOne(options: {
+    select: FindOptionsSelect<Student>;
+    where: Partial<Student>;
+  }): Promise<Student> {
+    return this.repository.findOne({
+      select: options.select,
+      where: options.where,
+    });
   }
 
-  update(id: string, updateStudentDto: UpdateStudentDto) {
-    return this.repository.updateStudent(id, updateStudentDto);
+  update(codigo: number, updateStudentDto: UpdateStudentDto) {
+    return this.repository.update(codigo, updateStudentDto);
   }
 
-  remove(id: string) {
-    return this.repository.deleteStudent(id);
+  remove(codigo: number) {
+    return this.repository.delete(codigo);
   }
 }
