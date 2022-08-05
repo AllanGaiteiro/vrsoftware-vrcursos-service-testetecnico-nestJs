@@ -16,7 +16,7 @@ import { Course } from './entities/course.entity';
 
 @Controller('courses')
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService) {}
+  constructor(private readonly coursesService: CoursesService) { }
 
   @Post()
   create(@Body() createCourseDto: CreateCourseDto): Promise<Course> {
@@ -31,7 +31,6 @@ export class CoursesController {
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Course> {
     return this.coursesService.findOne({
-      select: { codigo: true },
       where: { codigo: +id },
     });
   }

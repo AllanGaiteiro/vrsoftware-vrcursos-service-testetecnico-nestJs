@@ -11,7 +11,6 @@ export class CoursesService {
     @Inject('COURSE_REPOSITORY') private repository: Repository<Course>,
   ) { }
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
-    console.log('courses create')
     const course = new Course();
     course.ementa = createCourseDto.ementa;
     course.descricao = createCourseDto.descricao;
@@ -23,11 +22,11 @@ export class CoursesService {
   }
 
   findOne(options: {
-    select?: FindOptionsSelect<Course>;
+    //select?: FindOptionsSelect<Course>;
     where?: Partial<Course>;
   }): Promise<Course> {
     return this.repository.findOne({
-      select: options.select,
+      //select: options.select,
       where: options.where,
     });
   }
