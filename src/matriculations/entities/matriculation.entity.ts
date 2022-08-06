@@ -1,13 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Course } from 'src/courses/entities/course.entity';
+import { Student } from 'src/students/entities/student.entity';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Matriculation {
   @PrimaryGeneratedColumn()
   codigo: number;
 
-  @Column()
-  codigoAluno: number;
+  @ManyToOne(() => Student, (student) => student.id, { cascade: true })
+  @JoinColumn({ name: 'codigo_aluno' })
+  student: Student;
 
-  @Column()
-  codigoCurso: number;
+  @ManyToOne(() => Course, (Course) => Course.id, { cascade: true })
+  @JoinColumn({ name: 'codigo_curso' })
+  course: Course;
 }
