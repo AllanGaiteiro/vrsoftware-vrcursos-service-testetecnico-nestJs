@@ -1,6 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+/* eslint-disable prettier/prettier */
 import { CreateMatriculationDto } from './create-matriculation.dto';
 
-export class UpdateMatriculationDto extends PartialType(
-  CreateMatriculationDto,
-) {}
+export class UpdateMatriculationDto extends CreateMatriculationDto {}
