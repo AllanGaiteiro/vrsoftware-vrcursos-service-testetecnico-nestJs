@@ -1,12 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
+  Body, Controller, Delete, Get, Param, Patch, Post
 } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CoursesService } from './courses.service';
@@ -31,7 +25,7 @@ export class CoursesController {
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Course> {
     return this.coursesService.findOne({
-      where: { codigo: +id },
+      where: { id: +id },
     });
   }
 

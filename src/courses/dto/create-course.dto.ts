@@ -1,4 +1,4 @@
 export class CreateCourseDto {
-  descricao: string;
-  ementa: string;
+  description: string;
+  menu: string;
 }

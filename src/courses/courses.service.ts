@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, Inject } from '@nestjs/common';
-import { DeleteResult, FindOptionsSelect, Repository, UpdateResult } from 'typeorm';
+import { Inject, Injectable } from '@nestjs/common';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
@@ -12,8 +12,8 @@ export class CoursesService {
   ) { }
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
     const course = new Course();
-    course.ementa = createCourseDto.ementa;
-    course.descricao = createCourseDto.descricao;
+    course.menu = createCourseDto.menu;
+    course.description = createCourseDto.description;
     return await this.repository.save(course);
   }
 
@@ -31,11 +31,11 @@ export class CoursesService {
     });
   }
 
-  async update(codigo: number, updateCourseDto: UpdateCourseDto): Promise<UpdateResult> {
-    return await this.repository.update(codigo, updateCourseDto);
+  async update(id: number, updateCourseDto: UpdateCourseDto): Promise<UpdateResult> {
+    return await this.repository.update(id, updateCourseDto);
   }
 
-  remove(codigo: number): Promise<DeleteResult> {
-    return this.repository.delete(codigo);
+  remove(id: number): Promise<DeleteResult> {
+    return this.repository.delete(id);
   }
 }
