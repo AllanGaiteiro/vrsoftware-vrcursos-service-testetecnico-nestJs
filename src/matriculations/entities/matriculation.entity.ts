@@ -5,7 +5,7 @@ import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
 @Entity()
 export class Matriculation {
   @PrimaryGeneratedColumn()
-  codigo: number;
+  id: number;
 
   @ManyToOne(() => Student, (student) => student.id, { cascade: true })
   @JoinColumn({ name: 'codigo_aluno' })

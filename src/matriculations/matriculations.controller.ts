@@ -34,7 +34,7 @@ export class MatriculationsController {
   findOne(@Param('id') id: string): Promise<Matriculation> {
     return this.matriculationsService.findOne({
       //select: { codigo: true },
-      where: { codigo: +id },
+      where: { id: +id },
     });
   }
 
