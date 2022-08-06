@@ -11,7 +11,7 @@ export class Matriculation {
   @JoinColumn({ name: 'codigo_aluno' })
   student: Student;
 
-  @ManyToOne(() => Course, (Course) => Course.id, { cascade: true })
+  @ManyToOne(() => Course, (course) => course.id, { cascade: true })
   @JoinColumn({ name: 'codigo_curso' })
   course: Course;
 }
