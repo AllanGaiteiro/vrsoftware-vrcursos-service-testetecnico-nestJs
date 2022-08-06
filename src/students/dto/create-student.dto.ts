@@ -1,3 +1,3 @@
 export class CreateStudentDto {
-  nome: string;
+  name: string;
 }

@@ -1,22 +1,16 @@
 /* eslint-disable prettier/prettier */
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
+  Body, Controller, Delete, Get, Param, Patch, Post
 } from '@nestjs/common';
-import { StudentsService } from './students.service';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { StudentsService } from './students.service';
 
 @Controller('students')
 export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+  constructor(private readonly studentsService: StudentsService) { }
 
   @Post()
   async create(@Body() createStudentDto: CreateStudentDto): Promise<Student> {
@@ -31,8 +25,8 @@ export class StudentsController {
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Student> {
     return this.studentsService.findOne({
-      select: { codigo: true },
-      where: { codigo: +id },
+      //select: { id: true },
+      where: { id: +id },
     });
   }
 

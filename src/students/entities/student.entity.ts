@@ -1,9 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
+/* eslint-disable prettier/prettier */
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Student {
-  @PrimaryGeneratedColumn()
-  codigo: number;
-  @Column({ length: 50 })
-  nome: string;
+  @PrimaryGeneratedColumn({ name: 'codigo' })
+  id: number;
+  @Column({
+    length: 50,
+    name: 'nome',
+  })
+  name: string;
 }

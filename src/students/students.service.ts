@@ -9,10 +9,10 @@ import { Student } from './entities/student.entity';
 export class StudentsService {
   constructor(
     @Inject('STUDENT_REPOSITORY') private repository: Repository<Student>,
-  ) {}
+  ) { }
   async create(createStudentDto: CreateStudentDto): Promise<Student> {
     const student = new Student();
-    student.nome = createStudentDto.nome;
+    student.name = createStudentDto.name;
     return await this.repository.save(student);
   }
 
@@ -21,20 +21,20 @@ export class StudentsService {
   }
 
   findOne(options: {
-    select: FindOptionsSelect<Student>;
+    //select: FindOptionsSelect<Student>;
     where: Partial<Student>;
   }): Promise<Student> {
     return this.repository.findOne({
-      select: options.select,
+      //select: options.select,
       where: options.where,
     });
   }
 
-  async update(codigo: number, updateStudentDto: UpdateStudentDto): Promise<UpdateResult> {
-    return await this.repository.update(codigo, updateStudentDto);
+  async update(id: number, updateStudentDto: UpdateStudentDto): Promise<UpdateResult> {
+    return await this.repository.update(id, updateStudentDto);
   }
 
-  remove(codigo: number): Promise<DeleteResult> {
-    return this.repository.delete(codigo);
+  remove(id: number): Promise<DeleteResult> {
+    return this.repository.delete(id);
   }
 }
