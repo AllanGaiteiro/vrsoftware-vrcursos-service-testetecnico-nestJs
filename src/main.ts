@@ -10,7 +10,6 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Vr Cursos')
     .setVersion('0.0.1')
-    .addTag('cursos')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
