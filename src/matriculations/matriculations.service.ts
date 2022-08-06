@@ -1,5 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Inject, Injectable } from '@nestjs/common';
+import { CoursesService } from 'src/courses/courses.service';
+import { Course } from 'src/courses/entities/course.entity';
+import { Student } from 'src/students/entities/student.entity';
+import { StudentsService } from 'src/students/students.service';
 import { DeleteResult, FindOptionsSelect, Repository, UpdateResult } from 'typeorm';
 import { CreateMatriculationDto } from './dto/create-matriculation.dto';
 import { UpdateMatriculationDto } from './dto/update-matriculation.dto';
@@ -8,39 +12,42 @@ import { Matriculation } from './entities/matriculation.entity';
 @Injectable()
 export class MatriculationsService {
   constructor(
-    @Inject('MATRICULATION_REPOSITORY') private repository: Repository<Matriculation>,
-  ) {}
-    /*
-        console.log('courses create')
-    const course = new Course();
-    course.ementa = createCourseDto.ementa;
-    course.descricao = createCourseDto.descricao;
-    return await this.repository.save(course);
-    */
+    @Inject('MATRICULATION_REPOSITORY') private repository: Repository<Matriculation>, private courseService: CoursesService,
+    private studentService: StudentsService
+  ) { }
 
   async create(createMatriculationDto: CreateMatriculationDto): Promise<Matriculation> {
+    const { courseId, studentId } = createMatriculationDto;
     const matriculation = new Matriculation();
-    matriculation.codigoAluno = createMatriculationDto.codigoAluno;
-    matriculation.codigoCurso = createMatriculationDto.codigoCurso;
+    matriculation.course = await this.courseService.findOne({ where: { id: +courseId } });
+    matriculation.student = await this.studentService.findOne({ where: { id: +studentId } });
     return await this.repository.save(matriculation);
   }
 
   findAll(): Promise<Matriculation[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: [Course.name.toLowerCase(), Student.name.toLowerCase()]
+    });
   }
 
   findOne(options: {
-    select: FindOptionsSelect<Matriculation>;
+    //select: FindOptionsSelect<Matriculation>;
     where: Partial<Matriculation>;
   }): Promise<Matriculation> {
+    console.log('find', options,Course.name.toLowerCase())
     return this.repository.findOne({
-      select: options.select,
+      //select: options.select,
       where: options.where,
+      relations: [Course.name.toLowerCase(), Student.name.toLowerCase()]
     });
   }
 
   async update(codigo: number, updateMatriculationDto: UpdateMatriculationDto): Promise<UpdateResult> {
-    return await this.repository.update(codigo, updateMatriculationDto);
+    const { courseId, studentId } = updateMatriculationDto;
+    const matriculation = new Matriculation();
+    matriculation.course = await this.courseService.findOne({ where: { id: +courseId } });
+    matriculation.student = await this.studentService.findOne({ where: { id: +studentId } });
+    return await this.repository.update(codigo, matriculation);
   }
 
   remove(codigo: number): Promise<DeleteResult> {
