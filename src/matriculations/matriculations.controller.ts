@@ -7,6 +7,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { MatriculationsService } from './matriculations.service';
 import { CreateMatriculationDto } from './dto/create-matriculation.dto';
@@ -16,7 +17,7 @@ import { UpdateResult, DeleteResult } from 'typeorm';
 
 @Controller('matriculations')
 export class MatriculationsController {
-  constructor(private readonly matriculationsService: MatriculationsService) {}
+  constructor(private readonly matriculationsService: MatriculationsService) { }
 
   @Post()
   create(
@@ -26,8 +27,10 @@ export class MatriculationsController {
   }
 
   @Get()
-  findAll(): Promise<Matriculation[]> {
-    return this.matriculationsService.findAll();
+  findAll(@Query('options') optionsStr?: string): Promise<Matriculation[]> {
+    const options: { relations?: string[], where?: Partial<Matriculation> } = optionsStr ? JSON.parse(optionsStr) : null;
+    return this.matriculationsService.findAll(options);
+
   }
 
   @Get(':id')

@@ -24,9 +24,14 @@ export class MatriculationsService {
     return await this.repository.save(matriculation);
   }
 
-  findAll(): Promise<Matriculation[]> {
+  findAll(options?: {
+    //select: FindOptionsSelect<Matriculation>;
+    where?: Partial<Matriculation>
+    relations?: string[];
+  }): Promise<Matriculation[]> {
     return this.repository.find({
-      relations: [Course.name.toLowerCase(), Student.name.toLowerCase()]
+      where: options?.where || {},
+      relations: options?.relations || [Course.name.toLowerCase(), Student.name.toLowerCase()]
     });
   }
 
@@ -34,7 +39,7 @@ export class MatriculationsService {
     //select: FindOptionsSelect<Matriculation>;
     where: Partial<Matriculation>;
   }): Promise<Matriculation> {
-    console.log('find', options,Course.name.toLowerCase())
+    console.log('find', options, Course.name.toLowerCase())
     return this.repository.findOne({
       //select: options.select,
       where: options.where,
