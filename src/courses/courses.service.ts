@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Inject, Injectable } from '@nestjs/common';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
@@ -8,34 +8,39 @@ import { Course } from './entities/course.entity';
 @Injectable()
 export class CoursesService {
   constructor(
-    @Inject('COURSE_REPOSITORY') private repository: Repository<Course>,
+    private prisma: PrismaService,
   ) { }
-  async create(createCourseDto: CreateCourseDto): Promise<Course> {
-    const course = new Course();
-    course.menu = createCourseDto.menu;
-    course.description = createCourseDto.description;
-    return await this.repository.save(course);
+  async create(createCourseDto: CreateCourseDto): Promise<any> {
+    const data = {
+      menu: createCourseDto.menu,
+      description: createCourseDto.description
+    };
+
+    return await this.prisma.course.create({
+      data
+    });
   }
 
   findAll(): Promise<Course[]> {
-    return this.repository.find();
+    return this.prisma.course.findMany();
   }
 
   findOne(options: {
     //select?: FindOptionsSelect<Course>;
     where?: Partial<Course>;
-  }): Promise<Course> {
-    return this.repository.findOne({
+  }): Promise<any> {
+    return this.prisma.course.findUnique({
       //select: options.select,
-      where: options.where,
+      where: { id: options.where.id },
     });
   }
 
-  async update(id: number, updateCourseDto: UpdateCourseDto): Promise<UpdateResult> {
-    return await this.repository.update(id, updateCourseDto);
+  async update(id: number, data: UpdateCourseDto): Promise<Course> {
+    return await this.prisma.course.update({ data, where: { id } });
   }
 
-  remove(id: number): Promise<DeleteResult> {
-    return this.repository.delete(id);
+  remove(id: number): Promise<any> {
+    return this.prisma.course.delete({ where: { id } });
   }
+
 }

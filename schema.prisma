@@ -1,0 +1,32 @@
+generator client {
+  provider      = "prisma-client-js"
+  engineType    = "binary"
+  binaryTargets = ["windows"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Course {
+  id Int     @default(autoincrement()) @id
+  description  String
+  menu  String
+  courseMatriculation      Matriculation[]    @relation(name: "CourseMatriculation")
+}
+
+model Student {
+  id    Int     @default(autoincrement()) @id
+  name  String
+  studentMatriculation      Matriculation[]    @relation(name: "StudentMatriculation")
+}
+
+model Matriculation {
+  id        Int      @default(autoincrement()) @id
+  course    Course  @relation(name: "CourseMatriculation", fields: [courseId], references: [id])
+  student   Student @relation(name: "StudentMatriculation", fields: [studentId], references: [id])
+  studentId Int
+  courseId  Int
+}
+
