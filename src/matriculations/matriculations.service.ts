@@ -1,10 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Inject, Injectable } from '@nestjs/common';
-import { CoursesService } from 'src/courses/courses.service';
+import { Injectable } from '@nestjs/common';
+import { PrismaPromise } from '@prisma/client';
 import { Course } from 'src/courses/entities/course.entity';
-import { Student } from 'src/students/entities/student.entity';
-import { StudentsService } from 'src/students/students.service';
-import { DeleteResult, FindOptionsSelect, Repository, UpdateResult } from 'typeorm';
+import { PrismaService } from 'src/prisma.service';
 import { CreateMatriculationDto } from './dto/create-matriculation.dto';
 import { UpdateMatriculationDto } from './dto/update-matriculation.dto';
 import { Matriculation } from './entities/matriculation.entity';
@@ -12,50 +10,48 @@ import { Matriculation } from './entities/matriculation.entity';
 @Injectable()
 export class MatriculationsService {
   constructor(
-    @Inject('MATRICULATION_REPOSITORY') private repository: Repository<Matriculation>, private courseService: CoursesService,
-    private studentService: StudentsService
+    private prisma: PrismaService,
   ) { }
 
-  async create(createMatriculationDto: CreateMatriculationDto): Promise<Matriculation> {
-    const { courseId, studentId } = createMatriculationDto;
-    const matriculation = new Matriculation();
-    matriculation.course = await this.courseService.findOne({ where: { id: +courseId } });
-    matriculation.student = await this.studentService.findOne({ where: { id: +studentId } });
-    return await this.repository.save(matriculation);
+  async create(createMatriculationDto: CreateMatriculationDto): Promise<any> {
+    return await this.prisma.matriculation.create({ data: createMatriculationDto });
   }
 
   findAll(options?: {
     //select: FindOptionsSelect<Matriculation>;
     where?: Partial<Matriculation>
     relations?: string[];
-  }): Promise<Matriculation[]> {
-    return this.repository.find({
+  }): PrismaPromise<any[]> {
+    return this.prisma.matriculation.findMany({
       where: options?.where || {},
-      relations: options?.relations || [Course.name.toLowerCase(), Student.name.toLowerCase()]
+      select: {
+        id: true,
+        course: true,
+        student: true
+      }
     });
   }
 
   findOne(options: {
     //select: FindOptionsSelect<Matriculation>;
     where: Partial<Matriculation>;
-  }): Promise<Matriculation> {
+  }): Promise<any> {
     console.log('find', options, Course.name.toLowerCase())
-    return this.repository.findOne({
-      //select: options.select,
+    return this.prisma.matriculation.findUnique({
       where: options.where,
-      relations: [Course.name.toLowerCase(), Student.name.toLowerCase()]
+      select: {
+        id: true,
+        course: true,
+        student: true
+      }
     });
   }
 
-  async update(codigo: number, updateMatriculationDto: UpdateMatriculationDto): Promise<UpdateResult> {
-    const { courseId, studentId } = updateMatriculationDto;
-    const matriculation = new Matriculation();
-    matriculation.course = await this.courseService.findOne({ where: { id: +courseId } });
-    matriculation.student = await this.studentService.findOne({ where: { id: +studentId } });
-    return await this.repository.update(codigo, matriculation);
+  async update(id: number, updateMatriculationDto: UpdateMatriculationDto): Promise<any> {
+    return await this.prisma.matriculation.update({ data: updateMatriculationDto, where: { id } });
   }
 
-  remove(codigo: number): Promise<DeleteResult> {
-    return this.repository.delete(codigo);
+  remove(id: number): Promise<any> {
+    return this.prisma.matriculation.delete({ where: { id } });
   }
 }

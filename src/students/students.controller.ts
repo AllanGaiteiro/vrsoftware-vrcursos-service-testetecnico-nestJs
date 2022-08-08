@@ -42,7 +42,7 @@ export class StudentsController {
   update(
     @Param('id') id: string,
     @Body() updateStudentDto: UpdateStudentDto,
-  ): Promise<UpdateResult> {
+  ): Promise<Student> {
     return this.studentsService.update(+id, updateStudentDto);
   }
 
