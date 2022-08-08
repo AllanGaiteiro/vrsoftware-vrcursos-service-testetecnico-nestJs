@@ -1,7 +1,10 @@
-
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Dependence
+
+- mysql instalado
 
 ## Installation
 
@@ -35,16 +38,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Documentation
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Duvidas sobre o funcionamento Api é só abrir ela na
+rota: "/api", la você encontrara uma base de comofunciona os end points em swagger.
