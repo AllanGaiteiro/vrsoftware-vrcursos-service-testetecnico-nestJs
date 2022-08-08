@@ -55,7 +55,7 @@ Prototipo: [clique aki](https://www.figma.com/proto/xySk0dp8tY0y0SQQG0CUEu/vr-co
   - link: https://dev.mysql.com/downloads/windows/installer/8.0.html
   - criar um usuario
   - pegar o usuarios e senha
-  - alterar no arquivo .env do projeto colocando seu usuario e senha
+  - alterar no arquivo database.ts do projeto colocando seu usuario e senha
 
 ## Installation
 
