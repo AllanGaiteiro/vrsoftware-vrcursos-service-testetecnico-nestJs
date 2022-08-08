@@ -35,11 +35,7 @@ export class CoursesService {
     });
   }
 
-  async update(id: number, updateCourseDto: UpdateCourseDto): Promise<Course> {
-    const data = {
-      descricao: updateCourseDto.description,
-      ementa: updateCourseDto.menu,
-    }
+  async update(id: number, data: UpdateCourseDto): Promise<Course> {
     return await this.prisma.course.update({ data, where: { id } });
   }
 
