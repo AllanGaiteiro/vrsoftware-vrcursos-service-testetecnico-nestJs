@@ -48,15 +48,6 @@ Escolhi Uma interface simples e minimalista, para facilitar vou deixar o link do
 
 Prototipo: [clique aki](https://www.figma.com/proto/xySk0dp8tY0y0SQQG0CUEu/vr-courses?node-id=10%3A479&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=10%3A235)
 
-## Dependence
-
-- mysql instalado:
-
-  - link: https://dev.mysql.com/downloads/windows/installer/8.0.html
-  - criar um usuario
-  - pegar o usuarios e senha
-  - alterar no arquivo database.ts do projeto colocando seu usuario e senha
-
 ## Installation
 
 ```bash
@@ -92,6 +83,8 @@ $ npm run test:cov
 ## Documentation
 
 Duvidas sobre o funcionamento Api é só abrir ela na
-rota: "/api", la você encontrara uma base de comofunciona os end points em swagger.
+rota da documentação, la você encontrara uma base de comofunciona os end points em swagger:
+
+rota: http://localhost:3000/api/
 
 [⬆ Voltar ao topo](#NestJs-TesteTecnico-VR)<br>
