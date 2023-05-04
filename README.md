@@ -3,7 +3,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/AllanGaiteiro/NestJs-TesteTecnico-VR?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/AllanGaiteiro/NestJs-TesteTecnico-VR?style=for-the-badge)
 [![Link para o Prototipo](https://img.shields.io/badge/Prototipo-ffffff?style=for-the-badge&color=F24E1E)](https://www.figma.com/proto/xySk0dp8tY0y0SQQG0CUEu/vr-courses?node-id=10%3A479&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=10%3A235)
-[![Link para o Front](https://img.shields.io/badge/VR_Software_Web-ffffff?style=for-the-badge&color=blue)](https://github.com/AllanGaiteiro/vrsoftware-vrcursos-front-testetecnico-angular)
+[![Link para o Front](https://img.shields.io/badge/VR_Cursos_Web-ffffff?style=for-the-badge&color=blue)](https://github.com/AllanGaiteiro/vrsoftware-vrcursos-front-testetecnico-angular)
 ### Description
 
 Projeto Proposto para testar abilidade tecnicas para uma vaga de Programador Fullstack.
